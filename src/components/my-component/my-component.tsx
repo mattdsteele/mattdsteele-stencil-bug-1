@@ -1,20 +1,11 @@
-import { Component, Prop } from '@stencil/core';
+import { Component } from '@stencil/core';
 
 @Component({
-  tag: 'my-component',
-  styleUrl: 'my-component.css',
+  tag: 'inner-component',
   shadow: true
 })
-export class MyComponent {
-
-  @Prop() first: string;
-  @Prop() last: string;
-
+export class InnerComponent {
   render() {
-    return (
-      <div>
-        Hello, World! I'm {this.first} {this.last}
-      </div>
-    );
+    return <slot />;
   }
 }

@@ -13,9 +13,12 @@ declare global {
   }
   namespace JSXElements {}
 
+  interface HTMLElement {
+    componentOnReady?: () => Promise<this | null>;
+  }
+
   interface HTMLStencilElement extends HTMLElement {
     componentOnReady(): Promise<this>;
-    componentOnReady(done: (ele?: this) => void): void;
 
     forceUpdate(): void;
   }
@@ -27,33 +30,64 @@ declare global {
 declare global {
 
   namespace StencilComponents {
-    interface MyComponent {
-      'first': string;
-      'last': string;
+    interface InnerComponent {
+
     }
   }
 
-  interface HTMLMyComponentElement extends StencilComponents.MyComponent, HTMLStencilElement {}
+  interface HTMLInnerComponentElement extends StencilComponents.InnerComponent, HTMLStencilElement {}
 
-  var HTMLMyComponentElement: {
-    prototype: HTMLMyComponentElement;
-    new (): HTMLMyComponentElement;
+  var HTMLInnerComponentElement: {
+    prototype: HTMLInnerComponentElement;
+    new (): HTMLInnerComponentElement;
   };
   interface HTMLElementTagNameMap {
-    'my-component': HTMLMyComponentElement;
+    'inner-component': HTMLInnerComponentElement;
   }
   interface ElementTagNameMap {
-    'my-component': HTMLMyComponentElement;
+    'inner-component': HTMLInnerComponentElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      'my-component': JSXElements.MyComponentAttributes;
+      'inner-component': JSXElements.InnerComponentAttributes;
     }
   }
   namespace JSXElements {
-    export interface MyComponentAttributes extends HTMLAttributes {
-      'first'?: string;
-      'last'?: string;
+    export interface InnerComponentAttributes extends HTMLAttributes {
+
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
+    interface OuterComponent {
+
+    }
+  }
+
+  interface HTMLOuterComponentElement extends StencilComponents.OuterComponent, HTMLStencilElement {}
+
+  var HTMLOuterComponentElement: {
+    prototype: HTMLOuterComponentElement;
+    new (): HTMLOuterComponentElement;
+  };
+  interface HTMLElementTagNameMap {
+    'outer-component': HTMLOuterComponentElement;
+  }
+  interface ElementTagNameMap {
+    'outer-component': HTMLOuterComponentElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'outer-component': JSXElements.OuterComponentAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface OuterComponentAttributes extends HTMLAttributes {
+
     }
   }
 }
